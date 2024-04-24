@@ -1,0 +1,60 @@
+.Home {
+  padding-bottom: 60px !important;
+  overflow-y: hidden;
+  background-color: #efefef;
+
+  height: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0;
+}
+
+.app-icon {
+  width: 24px;
+  height: 24px;
+  background-color: black;
+  border-radius: 50px;
+}
+
+.header > div {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+
+  color: #b0b0b0;
+}
+
+.section {
+  /* 세로로 쌓기 */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  /* 내부 띄우기 */
+  padding: 1.5rem;
+  /* 외부 띄우기 top horizontal bottom */
+  margin: 0 auto 1rem;
+
+  background-color: #fefefe;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+
+.btn-section {
+  display: flex;
+  justify-content: space-evenly;
+
+  padding: 1rem;
+  margin: 0 auto 1rem;
+
+  border-radius: 25px;
+  box-sizing: border-box;
+  background-color: #fefefe;
+}
+
+.btn-section > span {
+  color: #efefef;
+}

@@ -1,0 +1,13 @@
+.SubButton {
+  background-color: #efefef;
+  height: 28px;
+  color: #787878;
+  font-weight: bold;
+  font-size: 12px;
+  min-width: 48px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}

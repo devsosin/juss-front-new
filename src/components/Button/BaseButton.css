@@ -1,0 +1,13 @@
+.BaseButton {
+  background-color: #5c89ff;
+  height: 36px;
+  color: #fefefe;
+  font-weight: bold;
+  font-size: 14px;
+  min-width: 48px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
