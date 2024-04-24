@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
@@ -11,8 +11,8 @@ import Card from "../../components/Card/Card";
 import { won } from "../../utils/currency";
 
 const Accounts = () => {
-  const accountTotal = 19803104;
-  const accounts = [
+  const [accountTotal, setAccountTotal] = useState(19803104);
+  const [accounts, setAccounts] = useState([
     {
       id: 1,
       is_show: true,
@@ -62,7 +62,7 @@ const Accounts = () => {
       account_type: 1,
       balance: 2102149,
     },
-  ];
+  ]);
 
   const navigate = useNavigate();
 
