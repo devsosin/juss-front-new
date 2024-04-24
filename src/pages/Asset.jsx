@@ -8,12 +8,7 @@ import Accounts from "./Asset/Accounts";
 import AccountRolling from "./Asset/AccountRolling";
 import FindLoan from "./Asset/FindLoan";
 
-import { won } from "../utils/currency";
-
 const Asset = () => {
-  const accounts = [];
-  const accountMoney = 0;
-
   const [assetPage, setAssetPage] = useState(0);
 
   const navigate = useNavigate();

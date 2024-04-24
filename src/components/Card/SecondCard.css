@@ -26,11 +26,11 @@
 }
 
 .SecondCard .card-title {
-  color: #787878;
-}
-
-.SecondCard .card-sub {
   color: #222;
   font-weight: bold;
   font-size: 16px;
+}
+
+.SecondCard .card-sub {
+  color: #787878;
 }

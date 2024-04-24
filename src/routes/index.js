@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "../pages/Home";
 import Asset from "../pages/Asset";
 import Account from "../pages/Account";
+import Withdraw from "../pages/Withdraw";
 
 import Pay from "../pages/Pay";
 import Benefit from "../pages/Benefit";
@@ -16,6 +17,7 @@ const AllRoutes = () => {
       <Route path="/" element={<Home />} />
       <Route path="/asset" element={<Asset />} />
       <Route path="/account/:accountId" element={<Account />} />
+      <Route path="/withdraw/:accountId" element={<Withdraw />} />
 
       <Route path="/benefit" element={<Benefit />} />
       <Route path="/pay" element={<Pay />} />

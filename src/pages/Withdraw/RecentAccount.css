@@ -1,0 +1,31 @@
+.RecentAccount > .search-bar {
+  display: flex;
+  margin: 1rem 0;
+}
+
+.RecentAccount > .search-bar > input {
+  flex: 1;
+  border: 0;
+  border-bottom: 1px solid #efefef;
+}
+
+.RecentAccount > .list {
+  margin: 3rem 0 1rem;
+}
+
+.RecentAccount .my-accounts {
+  display: flex;
+  justify-content: space-between;
+}
+
+.RecentAccount .accounts {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1rem;
+
+  margin-top: 1rem;
+}
+.RecentAccount .accounts > span {
+  text-align: left;
+}

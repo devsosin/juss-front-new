@@ -110,7 +110,7 @@ const Account = () => {
           </div>
           <span>{account.account_name}</span>
         </div>
-        <button>관리</button>
+        <div>관리</div>
       </div>
 
       <div className="info">
