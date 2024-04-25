@@ -8,6 +8,8 @@ import BaseButton from "../components/Button/BaseButton";
 import SecondCard from "../components/Card/SecondCard";
 import Balance from "../components/Card/Balance";
 
+import Deposit from "../modals/Deposit";
+
 import { won } from "../utils/currency";
 
 import "./Account.css";
@@ -68,6 +70,8 @@ const Account = () => {
   ]);
 
   const [dateTransactions, setDateTransactions] = useState([]);
+
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     let nowBalance = account.balance;
@@ -131,7 +135,12 @@ const Account = () => {
 
       {account.account_type === 0 ? (
         <div className="btns">
-          <BaseButton text={"채우기"} handleClick={() => {}} />
+          <BaseButton
+            text={"채우기"}
+            handleClick={() => {
+              setShowModal(true);
+            }}
+          />
           <BaseButton
             text={"보내기"}
             handleClick={() => navigate(`/withdraw/${account.id}`)}
@@ -181,6 +190,8 @@ const Account = () => {
           })}
         </div>
       </div>
+
+      {showModal ? <Deposit closeModal={() => setShowModal(false)} /> : null}
     </div>
   );
 };
