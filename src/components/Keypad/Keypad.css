@@ -1,0 +1,15 @@
+.Keypad {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Keypad > .item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 33%;
+
+  height: 60px;
+  font-size: large;
+}

@@ -1,0 +1,30 @@
+.Ing {
+  flex: 1;
+}
+
+.Ing > div:first-child {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+
+  margin-top: 25%;
+
+  font-size: 24px;
+  font-weight: bold;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .spinner {
+    animation: spin infinite 1800ms linear;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

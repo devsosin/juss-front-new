@@ -1,0 +1,61 @@
+.Complete {
+  flex: 1;
+  padding: 1rem;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.Complete > div:first-child {
+  flex: 1;
+  margin-top: 25%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.Complete > div:first-child > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.Complete .SubButton {
+  width: 120px;
+  height: 36px;
+}
+
+.Complete .bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1rem;
+}
+
+.Complete .bottom > div {
+  display: flex;
+  justify-content: space-around;
+}
+
+.Complete .bottom .BaseButton {
+  width: 45%;
+  height: 48px;
+}
+
+.Complete .bottom > div:last-child {
+  font-size: 14px;
+  color: #787878;
+}
+
+.Complete .BaseButton:first-child {
+  background-color: rgba(92, 137, 255, 0.1);
+  color: #5c78ff;
+}

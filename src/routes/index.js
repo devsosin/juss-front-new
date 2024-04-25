@@ -6,6 +6,7 @@ import Asset from "../pages/Asset";
 import Account from "../pages/Account";
 import Withdraw from "../pages/Withdraw";
 import Expense from "../pages/Expense";
+import Transfer from "../pages/Transfer";
 
 import Pay from "../pages/Pay";
 import Benefit from "../pages/Benefit";
@@ -20,6 +21,7 @@ const AllRoutes = () => {
       <Route path="/account/:accountId" element={<Account />} />
       <Route path="/withdraw/:accountId" element={<Withdraw />} />
       <Route path="/expense" element={<Expense />} />
+      <Route path="/transfer/:fromId/:toId" element={<Transfer />} />
 
       <Route path="/benefit" element={<Benefit />} />
       <Route path="/pay" element={<Pay />} />
