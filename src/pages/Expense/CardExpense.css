@@ -1,0 +1,21 @@
+.CardExpense > :not(div:first-child)  {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+.CardExpense > div:first-child {
+display: flex;
+justify-content: space-between;
+margin-bottom: 2rem;
+}
+  
+.CardExpense .total-expense {
+    color: #787878;
+    font-size: 14px;
+  }
+  
+  .CardExpense .performance {
+    display: flex;
+    gap: 1rem;
+  }

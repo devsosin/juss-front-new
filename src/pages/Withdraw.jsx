@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { FaArrowLeft } from "react-icons/fa";
 
@@ -9,8 +9,6 @@ import RecentPhone from "./Withdraw/RecentPhone";
 import "./Withdraw.css";
 
 const Withdraw = () => {
-  const { accountId } = useParams();
-
   const [type, setType] = useState(0);
 
   const navigate = useNavigate();

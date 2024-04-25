@@ -1,0 +1,13 @@
+.Badge {
+    border-radius: 10px;
+    background-color: #efefef;
+    color: #787878;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 0.25rem;
+  }
+  
+  .Badge.active {
+    background-color: rgba(92, 137, 255, 0.1);
+    color: #5c89ff;
+  }
