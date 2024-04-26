@@ -11,9 +11,8 @@ import { won } from "../utils/currency";
 import "./Home.css";
 
 const Home = () => {
-
   const navigate = useNavigate();
-  
+
   const accounts = [
     {
       id: 1,
@@ -65,9 +64,21 @@ const Home = () => {
       </div>
       <div className="section asset">
         {accounts.map(({ id, balance, account_name, account_type }) => (
-          <Card key={id} title={account_name} subTitle={won(balance)}>
+          <Card
+            key={id}
+            title={account_name}
+            subTitle={won(balance)}
+            handleClick={() => {
+              navigate(`/account/${id}`);
+            }}
+          >
             {account_type === 0 ? (
-              <SubButton text={"내역"} handleClick={() => {navigate(`/account/${id}`)}} />
+              <SubButton
+                text={"내역"}
+                handleClick={() => {
+                  navigate(`/account/${id}`);
+                }}
+              />
             ) : (
               ""
             )}
@@ -86,7 +97,11 @@ const Home = () => {
         </Link>
       </div>
       <div className="section expense">
-        <Card title={"이번 달 쓴 금액"} subTitle={won(totalUsed)}>
+        <Card
+          title={"이번 달 쓴 금액"}
+          subTitle={won(totalUsed)}
+          handleClick={() => navigate("/expense")}
+        >
           <SubButton text={"내역"} handleClick={() => navigate("/expense")} />
         </Card>
         <Card title={`${toPay.date} 낼 카드값`} subTitle={won(toPay.amount)} />

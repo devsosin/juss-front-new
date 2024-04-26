@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import Card from "../components/Card/Card";
 import Modal from "../conatiners/Modal";
@@ -10,6 +10,7 @@ import { won } from "../utils/currency";
 import "./Deposit.css";
 
 const Deposit = ({ closeModal }) => {
+  const navigate = useNavigate();
   const { accountId } = useParams();
 
   const [myAccounts, setMyAccounts] = useState();
@@ -61,7 +62,12 @@ const Deposit = ({ closeModal }) => {
           {myAccounts
             ? myAccounts.map(({ balance, account_name, id }) => {
                 return (
-                  <Card key={id} title={account_name} subTitle={won(balance)} />
+                  <Card
+                    key={id}
+                    title={account_name}
+                    subTitle={won(balance)}
+                    handleClick={() => navigate(`/transfer/${id}/${accountId}`)}
+                  />
                 );
               })
             : ""}

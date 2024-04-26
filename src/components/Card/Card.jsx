@@ -2,9 +2,19 @@ import React from "react";
 
 import "./Card.css";
 
-const Card = ({ title, subTitle, children }) => {
+const Card = ({ title, subTitle, handleClick, children }) => {
   return (
-    <div className="Card" onClick={() => {}}>
+    <div
+      className="Card"
+      onClick={(e) =>
+        handleClick
+          ? e.target.className.toLowerCase().includes("card") ||
+            e.target.parentElement.className === "Card"
+            ? handleClick()
+            : null
+          : null
+      }
+    >
       <div className="left">
         <div className="card-icon"></div>
         <div className="card-text">

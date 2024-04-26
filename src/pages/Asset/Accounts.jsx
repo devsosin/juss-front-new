@@ -86,7 +86,14 @@ const Accounts = () => {
           ({ balance, account_name, is_show, account_type, id }) => {
             if (is_show) {
               return (
-                <Card key={id} title={account_name} subTitle={won(balance)}>
+                <Card
+                  key={id}
+                  title={account_name}
+                  subTitle={won(balance)}
+                  handleClick={() => {
+                    navigate(`/account/${id}`);
+                  }}
+                >
                   {account_type === 0 ? (
                     <SubButton
                       text={"송금"}
@@ -105,7 +112,14 @@ const Accounts = () => {
           ({ balance, account_name, is_show, id, account_type }) => {
             if (!is_show) {
               return (
-                <Card key={id} title={account_name} subTitle={won(balance)}>
+                <Card
+                  key={id}
+                  title={account_name}
+                  subTitle={won(balance)}
+                  handleClick={() => {
+                    navigate(`/account/${id}`);
+                  }}
+                >
                   {account_type === 0 ? (
                     <SubButton
                       text={"송금"}
