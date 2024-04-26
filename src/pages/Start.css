@@ -1,0 +1,21 @@
+.Start {
+  display: flex;
+  height: 100%;
+  background: no-repeat center url("../assets/bg.png");
+
+  padding: 0 !important;
+}
+
+.Start > .mask {
+  background-color: rgba(0, 0, 0, 0.2);
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+
+  padding: 2rem;
+}
+
+.Start .BaseButton {
+  flex: 1;
+  height: 48px;
+}

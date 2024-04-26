@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 
+import Start from "../pages/Start";
 import Home from "../pages/Home";
 import Asset from "../pages/Asset";
 import Account from "../pages/Account";
@@ -27,6 +28,8 @@ const AllRoutes = () => {
       <Route path="/pay" element={<Pay />} />
       <Route path="/stock" element={<Stock />} />
       <Route path="/menu" element={<Menu />} />
+
+      <Route path="/start" element={<Start />} />
     </Routes>
   );
 };
