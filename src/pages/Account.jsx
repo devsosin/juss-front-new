@@ -20,14 +20,8 @@ const Account = () => {
   const navigate = useNavigate();
   const { accountId } = useParams();
 
-  const [account, setAccount] = useState({
-    id: 222,
-    bank_name: "한국씨티은행",
-    account_name: "씨티 글로벌통장",
-    account_number: "554-64-79609",
-    account_type: 0,
-    balance: 3689416,
-  });
+  const [account, setAccount] = useState({});
+
   const [transactions, setTransactions] = useState([
     {
       id: 1,
