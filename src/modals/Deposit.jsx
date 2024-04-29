@@ -9,39 +9,26 @@ import { won } from "../utils/currency";
 
 import "./Deposit.css";
 
+import axios from "axios";
+
 const Deposit = ({ closeModal }) => {
   const navigate = useNavigate();
   const { accountId } = useParams();
 
   const [myAccounts, setMyAccounts] = useState();
 
-  // 내 계좌 제외
   useEffect(() => {
-    const accounts = [
-      { id: 1, account_type: 0, account_name: "KB마이핏통장", balance: 93050 },
-      {
-        id: 2,
-        account_type: 0,
-        account_name: "NH멤버스통장",
-        balance: 2690771,
+    axios({
+      url: "http://localhost:8080/api/v1/accounts",
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt-token"),
       },
-      {
-        id: 3,
-        account_type: 0,
-        account_name: "KB마이핏통장",
-        balance: 4840092,
-      },
-      {
-        id: 4,
-        account_type: 1,
-        account_name: "기업 BIZ통장",
-        balance: 2553247,
-      },
-    ];
-
-    setMyAccounts(
-      accounts.filter(
-        ({ id, account_type }) => id !== accountId && account_type === 0
+    }).then((res) =>
+      setMyAccounts(
+        res.data.accounts.filter(
+          ({ id, account_type }) => id + "" !== accountId && account_type === 0
+        )
       )
     );
   }, [accountId]);

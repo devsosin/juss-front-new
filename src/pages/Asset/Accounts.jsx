@@ -28,7 +28,6 @@ const Accounts = () => {
   }, []);
 
   useMemo(() => {
-    if (accounts.length !== 0) console.log(accounts);
     setAccountTotal(accounts.reduce((acc, v) => acc + v.balance, 0));
   }, [accounts]);
 
