@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
 
@@ -8,25 +8,36 @@ import { won } from "../../utils/currency";
 
 import "./Confirm.css";
 
+import axios from "axios";
+
 const Confirm = ({ amount, toNext }) => {
   const { fromId, toId } = useParams();
 
-  const [fromAccount, setFromAccount] = useState({
-    id: 1,
-    account_name: "NH올원통장",
-    balance: 4539243,
-    is_own: true,
-  });
+  const [fromAccount, setFromAccount] = useState({});
+  const [toAccount, setToAccount] = useState({});
 
-  const [toAccount, setToAccount] = useState({
-    id: 2,
-    bank_name: "하나은행",
-    account_name: "하나골드클럽통장",
-    account_number: "800-41-45416",
-    is_own: false,
-  });
+  useEffect(() => {
+    axios({
+      url: `http://localhost:8080/api/v1/account/${fromId}`,
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt-token"),
+      },
+    }).then((res) => setFromAccount(res.data));
 
-  const [isFill, setIsFill] = useState(toAccount.is_own);
+    axios({
+      url: `http://localhost:8080/api/v1/account/${toId}`,
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt-token"),
+      },
+    }).then((res) => {
+      setToAccount(res.data);
+      setIsFill(res.data.is_own);
+    });
+  }, [fromId, toId]);
+
+  const [isFill, setIsFill] = useState(false);
 
   return (
     <div className="Confirm">

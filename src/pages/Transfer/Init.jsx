@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { FaArrowLeft } from "react-icons/fa";
@@ -9,25 +9,34 @@ import { won } from "../../utils/currency";
 
 import "./Init.css";
 
+import axios from "axios";
+
 const Init = ({ toNext }) => {
   const navigate = useNavigate();
   const { fromId, toId } = useParams();
 
   const [amount, setAmount] = useState("");
 
-  const [fromAccount, setFromAccount] = useState({
-    id: 1,
-    account_name: "NH올원통장",
-    balance: 4539243,
-    is_own: true,
-  });
-  const [toAccount, setToAccount] = useState({
-    id: 2,
-    bank_name: "하나은행",
-    account_name: "하나골드클럽통장",
-    account_number: "800-41-45416",
-    is_own: false,
-  });
+  const [fromAccount, setFromAccount] = useState({});
+  const [toAccount, setToAccount] = useState({});
+
+  useEffect(() => {
+    axios({
+      url: `http://localhost:8080/api/v1/account/${fromId}`,
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt-token"),
+      },
+    }).then((res) => setFromAccount(res.data));
+
+    axios({
+      url: `http://localhost:8080/api/v1/account/${toId}`,
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt-token"),
+      },
+    }).then((res) => setToAccount(res.data));
+  }, [fromId, toId]);
 
   const changeAmount = (v) => {
     let res = amount.replace(/\D/g, "");
@@ -53,37 +62,37 @@ const Init = ({ toNext }) => {
         <div className="transfer-info">
           <div className="transfer-from">
             <div>
-              <span>{`내 ${fromAccount.account_name}`}</span>에서
+              <span>{`내 ${fromAccount?.account_name}`}</span>에서
             </div>
             <div className="balance-text">{`잔액 ${won(
-              fromAccount.balance
+              fromAccount?.balance
             )}`}</div>
           </div>
 
           <div className="transfer-to">
             <div>
               <span>
-                {`${toAccount.is_own ? "내 " : ""}` + toAccount.account_name}
+                {`${toAccount?.is_own ? "내 " : ""}` + toAccount?.account_name}
               </span>
-              {`${toAccount.is_own ? "으로" : "님에게"}`}
+              {`${toAccount?.is_own ? "으로" : "님에게"}`}
             </div>
-            <div className="balance-text">{`${toAccount.bank_name} ${toAccount.account_number}`}</div>
+            <div className="balance-text">{`${toAccount?.bank_name} ${toAccount?.account_number}`}</div>
           </div>
 
           <div className="transfer-amount">
             <input
               type="text"
               value={amount === "0원" ? "" : amount}
-              placeholder={`얼마나 ${toAccount.is_own ? "채울" : "보낼"}까요?`}
+              placeholder={`얼마나 ${toAccount?.is_own ? "채울" : "보낼"}까요?`}
             />
           </div>
 
           <div className="transfer-balance">
             <button
               className="balance-btn"
-              onClick={() => setAmount(won(fromAccount.balance))}
+              onClick={() => setAmount(won(fromAccount?.balance))}
             >
-              {`잔액 · ${won(fromAccount.balance)} 입력`}
+              {`잔액 · ${won(fromAccount?.balance)} 입력`}
             </button>
           </div>
         </div>

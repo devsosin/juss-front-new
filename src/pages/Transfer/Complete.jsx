@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -10,21 +10,28 @@ import SubButton from "../../components/Button/SubButton";
 import { won } from "../../utils/currency";
 
 import "./Complete.css";
+import axios from "axios";
 
 const Complete = ({ amount }) => {
   const navigate = useNavigate();
 
   const { fromId, toId } = useParams();
 
-  const [toAccount, setToAccount] = useState({
-    id: 2,
-    bank_name: "하나은행",
-    account_name: "하나골드클럽통장",
-    account_number: "800-41-45416",
-    is_own: false,
-  });
+  const [toAccount, setToAccount] = useState({});
+  const [isFill, setIsFill] = useState(false);
 
-  const [isFill, setIsFill] = useState(toAccount.is_own);
+  useEffect(() => {
+    axios({
+      url: `http://localhost:8080/api/v1/account/${toId}`,
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt-token"),
+      },
+    }).then((res) => {
+      setToAccount(res.data);
+      setIsFill(res.data.is_own);
+    });
+  }, [toId]);
 
   return (
     <div className="Complete">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
 
@@ -7,23 +7,34 @@ import { FaSpinner } from "react-icons/fa";
 import { won } from "../../utils/currency";
 
 import "./Ing.css";
+import axios from "axios";
 
-const Ing = ({ amount, toNext }) => {
+const Ing = ({ amount, toNext, isComplete }) => {
   const { toId } = useParams();
 
-  const [toAccount, setToAccount] = useState({
-    id: 2,
-    bank_name: "하나은행",
-    account_name: "하나골드클럽통장",
-    account_number: "800-41-45416",
-    is_own: false,
-  });
+  const [toAccount, setToAccount] = useState({});
+  const [isFill, setIsFill] = useState(false);
 
-  setTimeout(() => {
-    toNext();
-  }, 1000);
+  useEffect(() => {
+    axios({
+      url: `http://localhost:8080/api/v1/account/${toId}`,
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt-token"),
+      },
+    }).then((res) => {
+      setToAccount(res.data);
+      setIsFill(res.data.is_own);
+    });
+  }, [toId]);
 
-  const [isFill, setIsFill] = useState(toAccount.is_own);
+  useEffect(() => {
+    if (isComplete) {
+      setTimeout(() => {
+        toNext();
+      }, 1000);
+    }
+  }, [isComplete]);
 
   return (
     <div className="Ing">

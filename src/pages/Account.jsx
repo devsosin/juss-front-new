@@ -140,13 +140,13 @@ const Account = () => {
                     ({ id, memo, amount, is_send, balance, created_at }) => {
                       return (
                         <SecondCard
+                          key={id}
                           title={memo}
                           subTitle={`${created_at[3]
                             .toString()
                             .padStart(2, "0")}:${created_at[4]
                             .toString()
                             .padStart(2, "0")}`}
-                          key={id}
                         >
                           <Balance
                             amount={amount}
