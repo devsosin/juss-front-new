@@ -9,7 +9,7 @@ import { won } from "../../utils/currency";
 
 import "./Init.css";
 
-import axios from "axios";
+import { getAccount } from "../../api/account";
 
 const Init = ({ toNext }) => {
   const navigate = useNavigate();
@@ -21,21 +21,11 @@ const Init = ({ toNext }) => {
   const [toAccount, setToAccount] = useState({});
 
   useEffect(() => {
-    axios({
-      url: `http://localhost:8080/api/v1/account/${fromId}`,
-      method: "get",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("jwt-token"),
-      },
-    }).then((res) => setFromAccount(res.data));
-
-    axios({
-      url: `http://localhost:8080/api/v1/account/${toId}`,
-      method: "get",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("jwt-token"),
-      },
-    }).then((res) => setToAccount(res.data));
+    const token = localStorage.getItem("jwt-token");
+    getAccount({ token, accountId: fromId }).then((data) =>
+      setFromAccount(data)
+    );
+    getAccount({ token, accountId: toId }).then((data) => setToAccount(data));
   }, [fromId, toId]);
 
   const changeAmount = (v) => {

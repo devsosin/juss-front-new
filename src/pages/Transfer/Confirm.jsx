@@ -8,36 +8,25 @@ import { won } from "../../utils/currency";
 
 import "./Confirm.css";
 
-import axios from "axios";
+import { getAccount } from "../../api/account";
 
 const Confirm = ({ amount, toNext }) => {
   const { fromId, toId } = useParams();
 
   const [fromAccount, setFromAccount] = useState({});
   const [toAccount, setToAccount] = useState({});
+  const [isFill, setIsFill] = useState(false);
 
   useEffect(() => {
-    axios({
-      url: `http://localhost:8080/api/v1/account/${fromId}`,
-      method: "get",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("jwt-token"),
-      },
-    }).then((res) => setFromAccount(res.data));
-
-    axios({
-      url: `http://localhost:8080/api/v1/account/${toId}`,
-      method: "get",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("jwt-token"),
-      },
-    }).then((res) => {
-      setToAccount(res.data);
-      setIsFill(res.data.is_own);
+    const token = localStorage.getItem("jwt-token");
+    getAccount({ token, accountId: fromId }).then((data) =>
+      setFromAccount(data)
+    );
+    getAccount({ token, accountId: toId }).then((data) => {
+      setToAccount(data);
+      setIsFill(data.is_own);
     });
   }, [fromId, toId]);
-
-  const [isFill, setIsFill] = useState(false);
 
   return (
     <div className="Confirm">

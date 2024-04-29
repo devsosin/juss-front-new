@@ -9,7 +9,9 @@ import Confirm from "./Transfer/Confirm";
 
 import "./Transfer.css";
 
-import axios from "axios";
+import { getAccount } from "../api/account";
+import { transferMoney } from "../api/transfer";
+
 const Transfer = () => {
   const [step, setStep] = useState(0);
   const [amount, setAmount] = useState(0);
@@ -19,13 +21,10 @@ const Transfer = () => {
   const [fromAccount, setFromAccount] = useState({});
 
   useEffect(() => {
-    axios({
-      url: `http://localhost:8080/api/v1/account/${fromId}`,
-      method: "get",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("jwt-token"),
-      },
-    }).then((res) => setFromAccount(res.data));
+    const token = localStorage.getItem("jwt-token");
+    getAccount({ token, accountId: fromId }).then((data) =>
+      setFromAccount(data)
+    );
   }, [fromId]);
 
   const toConfirm = (v) => {
@@ -37,21 +36,11 @@ const Transfer = () => {
 
   const confirmTransfer = () => {
     setStep(2);
-    axios({
-      url: `http://localhost:8080/api/v1/transfer`,
-      method: "post",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("jwt-token"),
-      },
-      data: {
-        sender_id: fromAccount.id,
+    const token = localStorage.getItem("jwt-token");
+    transferMoney({token, body:{sender_id: fromAccount.id,
         receiver_id: toId,
         amount: amount,
-        memo: fromAccount.account_name,
-      },
-    }).then((res) => {
-      setIsComplete(true);
-    });
+        memo: fromAccount.account_name}}).then(res => setIsComplete(true));
   };
 
   const completeTransfer = () => {

@@ -8,7 +8,7 @@ import Favorite from "../../components/Card/Favorite";
 
 import "./RecentAccount.css";
 
-import axios from "axios";
+import { getRecents } from "../../api/account";
 
 const RecentAccount = () => {
   const navigate = useNavigate();
@@ -17,13 +17,8 @@ const RecentAccount = () => {
   const [recentAccounts, setRecentAccounts] = useState([]);
 
   useEffect(() => {
-    axios({
-      method: "get",
-      url: `http://localhost:8080/api/v1/recent?type=${0}`,
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
-      },
-    }).then((res) => setRecentAccounts(res.data.accounts));
+    const token = localStorage.getItem("jwt-token");
+    getRecents({ token, type: 0 }).then((data) => setRecentAccounts(data));
   }, [accountId]);
 
   return (

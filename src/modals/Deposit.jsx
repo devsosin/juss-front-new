@@ -9,7 +9,7 @@ import { won } from "../utils/currency";
 
 import "./Deposit.css";
 
-import axios from "axios";
+import { getAccounts } from "../api/account";
 
 const Deposit = ({ closeModal }) => {
   const navigate = useNavigate();
@@ -18,19 +18,11 @@ const Deposit = ({ closeModal }) => {
   const [myAccounts, setMyAccounts] = useState();
 
   useEffect(() => {
-    axios({
-      url: "http://localhost:8080/api/v1/accounts",
-      method: "get",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("jwt-token"),
-      },
-    }).then((res) =>
-      setMyAccounts(
-        res.data.accounts.filter(
-          ({ id, account_type }) => id + "" !== accountId && account_type === 0
-        )
+    getAccounts({token}).then(data => setMyAccounts(
+      data.filter(
+        ({ id, account_type }) => id + "" !== accountId && account_type === 0
       )
-    );
+    ))
   }, [accountId]);
 
   return (

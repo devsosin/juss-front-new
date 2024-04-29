@@ -15,7 +15,8 @@ import CardExpense from "./Expense/CardExpense";
 import { won } from "../utils/currency";
 
 import "./Expense.css";
-import axios from "axios";
+
+import {getCards } from '../api/card'
 
 const Expense = () => {
   const navigate = useNavigate();
@@ -26,13 +27,9 @@ const Expense = () => {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    axios({
-      url: `http://localhost:8080/api/v1/cards?ym=${ym}`,
-      method: "get",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
-      },
-    }).then((res) => setCards(res.data.cards));
+    
+    const token = localStorage.getItem("jwt-token");
+    getCards({token, ym}).then(data => setCards(data));
   }, [ym]);
 
   const [expense, setExpense] = useState(0);

@@ -9,7 +9,8 @@ import SubButton from "../../components/Button/SubButton";
 import Card from "../../components/Card/Card";
 
 import { won } from "../../utils/currency";
-import axios from "axios";
+
+import { getAccounts } from "../../api/account";
 
 const Accounts = () => {
   const [accountTotal, setAccountTotal] = useState(0);
@@ -18,13 +19,8 @@ const Accounts = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios({
-      url: "http://localhost:8080/api/v1/accounts",
-      method: "get",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("jwt-token"),
-      },
-    }).then((res) => setAccounts(res.data.accounts));
+    const token = localStorage.getItem("jwt-token");
+    getAccounts({ token }).then((data) => setAccounts(data));
   }, []);
 
   useMemo(() => {

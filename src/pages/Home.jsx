@@ -9,7 +9,10 @@ import SubButton from "../components/Button/SubButton";
 import { won } from "../utils/currency";
 
 import "./Home.css";
-import axios from "axios";
+
+import { getAccounts } from "../api/account";
+import { getTopay, getUsed } from "../api/transaction";
+
 
 const Home = () => {
   const navigate = useNavigate();
@@ -19,29 +22,14 @@ const Home = () => {
   const [toPay, setTopay] = useState({});
 
   useEffect(() => {
-    axios({
-      url: "http://localhost:8080/api/v1/accounts?isShow=true",
-      method: "get",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("jwt-token"),
-      },
-    }).then((res) => setAccounts(res.data.accounts));
+    const token = localStorage.getItem("jwt-token");
 
-    axios({
-      url: "http://localhost:8080/api/v1/used",
-      method: "get",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("jwt-token"),
-      },
-    }).then((res) => setTotalUsed(res.data.amount));
+    getAccounts({ token, isShow: "true" }).then((data) => setAccounts(data));
 
-    axios({
-      url: "http://localhost:8080/api/v1/topay",
-      method: "get",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("jwt-token"),
-      },
-    }).then((res) => setTopay(res.data.topay));
+    getUsed({token}).then(data => setTotalUsed(data));
+
+    getTopay({token}).then(data=> setTopay(data))
+
   }, []);
 
   return (

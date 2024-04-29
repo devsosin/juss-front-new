@@ -10,7 +10,8 @@ import SubButton from "../../components/Button/SubButton";
 import { won } from "../../utils/currency";
 
 import "./Complete.css";
-import axios from "axios";
+
+import { getAccount } from "../../api/account";
 
 const Complete = ({ amount }) => {
   const navigate = useNavigate();
@@ -21,15 +22,10 @@ const Complete = ({ amount }) => {
   const [isFill, setIsFill] = useState(false);
 
   useEffect(() => {
-    axios({
-      url: `http://localhost:8080/api/v1/account/${toId}`,
-      method: "get",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("jwt-token"),
-      },
-    }).then((res) => {
-      setToAccount(res.data);
-      setIsFill(res.data.is_own);
+    const token = localStorage.getItem("jwt-token");
+    getAccount({ token, accountId: toId }).then((data) => {
+      setToAccount(data);
+      setIsFill(data.is_own);
     });
   }, [toId]);
 

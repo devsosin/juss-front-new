@@ -14,36 +14,23 @@ import { won } from "../utils/currency";
 
 import "./Account.css";
 
-import axios from "axios";
+import { getAccount } from "../api/account";
+import { getTransactions } from "../api/transaction";
 
 const Account = () => {
   const navigate = useNavigate();
   const { accountId } = useParams();
 
   const [account, setAccount] = useState({});
-
   const [transactions, setTransactions] = useState([]);
-
   const [dateTransactions, setDateTransactions] = useState([]);
-
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    axios({
-      method: "get",
-      url: `http://localhost:8080/api/v1/account/${accountId}`,
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
-      },
-    }).then((res) => setAccount(res.data));
+    const token = localStorage.getItem("jwt-token");
+    getAccount({ token, accountId }).then((data) => setAccount(data));
 
-    axios({
-      method: "get",
-      url: `http://localhost:8080/api/v1/transaction/${accountId}`,
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
-      },
-    }).then((res) => setTransactions(res.data.transactions));
+    getTransactions({token, accountId}).then(data => setTransactions(data))
   }, [accountId]);
 
   useEffect(() => {

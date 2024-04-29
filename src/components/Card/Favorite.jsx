@@ -2,18 +2,15 @@ import React, { useState } from "react";
 
 import { FaStar } from "react-icons/fa";
 
-import axios from "axios";
+
+import {toggleFavorite} from '../../api/account'
+
 
 const Favorite = ({ id, isFavorite }) => {
   const [fav, setFav] = useState(isFavorite);
   const changeFavorite = (id) => {
-    axios({
-      url: `http://localhost:8080/api/v1/favorite/${id}`,
-      method: "put",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
-      },
-    }).then((res) => (res.data ? setFav(!fav) : null));
+    const token = localStorage.getItem("jwt-token");
+    toggleFavorite({token, id}).then(data => data ? setFav(!fav) : null)
   };
 
   return (
