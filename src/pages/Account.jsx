@@ -22,48 +22,7 @@ const Account = () => {
 
   const [account, setAccount] = useState({});
 
-  const [transactions, setTransactions] = useState([
-    {
-      id: 1,
-      memo: "외식비용",
-      amount: 202584,
-      is_fill: false,
-      sender_id: 322,
-      created_at: [2024, 3, 5, 8, 33, 0],
-    },
-    {
-      id: 2,
-      memo: "도서구매",
-      amount: 74350,
-      is_fill: false,
-      sender_id: 322,
-      created_at: [2024, 2, 21, 23, 9, 0],
-    },
-    {
-      id: 3,
-      memo: "온라인 구독료 결제",
-      amount: 54543,
-      is_fill: false,
-      sender_id: 322,
-      created_at: [2024, 2, 18, 9, 4, 0],
-    },
-    {
-      id: 4,
-      memo: "교통비 결제",
-      amount: 20750,
-      is_fill: false,
-      sender_id: 322,
-      created_at: [2024, 2, 8, 21, 32, 0],
-    },
-    {
-      id: 5,
-      memo: "휴대폰 요금 결제",
-      amount: 275031,
-      is_fill: true,
-      sender_id: 322,
-      created_at: [2024, 2, 7, 2, 9, 0],
-    },
-  ]);
+  const [transactions, setTransactions] = useState([]);
 
   const [dateTransactions, setDateTransactions] = useState([]);
 
@@ -77,6 +36,14 @@ const Account = () => {
         Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
       },
     }).then((res) => setAccount(res.data));
+
+    axios({
+      method: "get",
+      url: `http://localhost:8080/api/v1/transaction/${accountId}`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
+      },
+    }).then((res) => setTransactions(res.data.transactions));
   }, [accountId]);
 
   useEffect(() => {
