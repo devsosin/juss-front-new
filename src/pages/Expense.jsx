@@ -15,6 +15,7 @@ import CardExpense from "./Expense/CardExpense";
 import { won } from "../utils/currency";
 
 import "./Expense.css";
+import axios from "axios";
 
 const Expense = () => {
   const navigate = useNavigate();
@@ -22,36 +23,18 @@ const Expense = () => {
   const [ym, setYm] = useState(
     `${now.getFullYear()}${now.getMonth().toString().padStart(2, "0")}`
   );
-  const [cards, setCards] = useState([
-    {
-      id: 1,
-      card_name: "하나 머니세상 체크카드",
-      amount: 612277,
-      min_usage: 250000,
-      is_credit: true,
-    },
-    {
-      id: 2,
-      card_name: "한국씨티 클리어 포인트 카드",
-      amount: 0,
-      min_usage: 250000,
-      is_credit: false,
-    },
-    {
-      id: 3,
-      card_name: "기업 디지털 포인트 카드",
-      amount: 851450,
-      min_usage: 0,
-      is_credit: false,
-    },
-    {
-      id: 4,
-      card_name: "신협 HI-POINT",
-      amount: 1000,
-      min_usage: null,
-      is_credit: true,
-    },
-  ]);
+  const [cards, setCards] = useState([]);
+
+  useEffect(() => {
+    axios({
+      url: `http://localhost:8080/api/v1/cards?ym=${ym}`,
+      method: "get",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
+      },
+    }).then((res) => setCards(res.data.cards));
+  }, [ym]);
+
   const [expense, setExpense] = useState(0);
   useMemo(() => {
     setExpense(cards.reduce((acc, v) => acc + v.amount, 0));
