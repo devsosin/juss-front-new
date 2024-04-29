@@ -15,6 +15,8 @@ const Home = () => {
   const navigate = useNavigate();
 
   const [accounts, setAccounts] = useState([]);
+  const [totalUsed, setTotalUsed] = useState(0);
+  const [toPay, setTopay] = useState({});
 
   useEffect(() => {
     axios({
@@ -24,13 +26,24 @@ const Home = () => {
         Authorization: "Bearer " + localStorage.getItem("jwt-token"),
       },
     }).then((res) => setAccounts(res.data.accounts));
+
+    axios({
+      url: "http://localhost:8080/api/v1/used",
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt-token"),
+      },
+    }).then((res) => setTotalUsed(res.data.amount));
+
+    axios({
+      url: "http://localhost:8080/api/v1/topay",
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt-token"),
+      },
+    }).then((res) => setTopay(res.data.topay));
   }, []);
 
-  const totalUsed = 1992329;
-  const toPay = {
-    date: "3월 15일",
-    amount: 5670653,
-  };
   return (
     <div className="Home">
       <div className="header">
