@@ -17,7 +17,7 @@ const Start = () => {
     })
       .then((res) => {
         // 응답이 정상적으로 오면, localStorage에 토큰 정보 저장
-        localStorage.setItem("jwt-token", res.data.accessToken);
+        localStorage.setItem("jwt-token", res.data.access_token);
         //   홈 화면으로 이동
         navigate("/");
       })

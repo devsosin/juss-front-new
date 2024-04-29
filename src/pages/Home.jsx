@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { FaBell } from "react-icons/fa";
@@ -9,42 +9,22 @@ import SubButton from "../components/Button/SubButton";
 import { won } from "../utils/currency";
 
 import "./Home.css";
+import axios from "axios";
 
 const Home = () => {
   const navigate = useNavigate();
 
-  const accounts = [
-    {
-      id: 1,
-      balance: 1576326,
-      account_name: "신한 쏠(SOL)",
-      account_type: 0, // 계좌: 0, 적금: 1
-    },
-    {
-      id: 2,
-      balance: 1607728,
-      account_name: "기업 BIZ적금",
-      account_type: 1,
-    },
-    {
-      id: 3,
-      balance: 896659,
-      account_name: "부산 해피드림적금",
-      account_type: 1,
-    },
-    {
-      id: 4,
-      balance: 4932120,
-      account_name: "씨티 클리어적금",
-      account_type: 1,
-    },
-    {
-      id: 5,
-      balance: 3000000,
-      account_name: "청년내일저축계좌",
-      account_type: 1,
-    },
-  ];
+  const [accounts, setAccounts] = useState([]);
+
+  useEffect(() => {
+    axios({
+      url: "http://localhost:8080/api/v1/accounts?isShow=true",
+      method: "get",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt-token"),
+      },
+    }).then((res) => setAccounts(res.data.accounts));
+  }, []);
 
   const totalUsed = 1992329;
   const toPay = {
