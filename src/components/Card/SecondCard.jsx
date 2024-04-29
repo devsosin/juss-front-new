@@ -6,14 +6,16 @@ const SecondCard = ({ title, subTitle, children, handleClick }) => {
   return (
     <div
       className="SecondCard"
-      onClick={(e) =>
-        handleClick
-          ? e.target.className.toLowerCase().includes("card") ||
-            e.target.parentElement.className === "SecondCard"
-            ? handleClick()
-            : null
-          : null
-      }
+      onClick={(e) => {
+        try {
+          return handleClick
+            ? e.target.className.toLowerCase().includes("card") ||
+              e.target.parentElement.className === "SecondCard"
+              ? handleClick()
+              : null
+            : null;
+        } catch (error) {}
+      }}
     >
       <div className="left">
         <div className="card-icon"></div>
