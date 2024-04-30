@@ -13,7 +13,6 @@ import "./Home.css";
 import { getAccounts } from "../api/account";
 import { getTopay, getUsed } from "../api/transaction";
 
-
 const Home = () => {
   const navigate = useNavigate();
 
@@ -25,11 +24,8 @@ const Home = () => {
     const token = localStorage.getItem("jwt-token");
 
     getAccounts({ token, isShow: "true" }).then((data) => setAccounts(data));
-
-    getUsed({token}).then(data => setTotalUsed(data));
-
-    getTopay({token}).then(data=> setTopay(data))
-
+    getUsed({ token }).then((data) => setTotalUsed(data));
+    getTopay({ token }).then((data) => setTopay(data));
   }, []);
 
   return (
@@ -55,7 +51,7 @@ const Home = () => {
           >
             {account_type === 0 ? (
               <SubButton
-                text={"내역"}
+                text={"송금"}
                 handleClick={() => {
                   navigate(`/account/${id}`);
                 }}
