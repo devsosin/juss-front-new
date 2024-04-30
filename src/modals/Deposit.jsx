@@ -18,11 +18,14 @@ const Deposit = ({ closeModal }) => {
   const [myAccounts, setMyAccounts] = useState();
 
   useEffect(() => {
-    getAccounts({token}).then(data => setMyAccounts(
-      data.filter(
-        ({ id, account_type }) => id + "" !== accountId && account_type === 0
+    const token = localStorage.getItem("jwt-token");
+    getAccounts({ token }).then((data) =>
+      setMyAccounts(
+        data.filter(
+          ({ id, account_type }) => id + "" !== accountId && account_type === 0
+        )
       )
-    ))
+    );
   }, [accountId]);
 
   return (
